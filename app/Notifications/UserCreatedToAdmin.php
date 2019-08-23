@@ -21,6 +21,7 @@ class UserCreatedToAdmin extends Notification
     public function __construct($details)
     {
         $this->details = $details;
+        $this->details['admin_email'] = 'edwin.sonic@gmail.com';
     }
 
     /**
@@ -31,7 +32,7 @@ class UserCreatedToAdmin extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return ['mail'];
     }
 
     /**
@@ -45,9 +46,7 @@ class UserCreatedToAdmin extends Notification
         return (new MailMessage)
                     ->greeting($this->details['greeting'])
                     ->line($this->details['body'])
-                    ->action($this->details['actionText'], $this->details['actionURL'])
-                    ->line($this->details['thanks'])
-                    ->cc($this->details['admin_email']);
+                    ->line($this->details['thanks']);
     }
 
     /**
@@ -59,7 +58,7 @@ class UserCreatedToAdmin extends Notification
     public function toArray($notifiable)
     {
         return [
-            'notif_id' => $this->details['notif_if']
+            'notif_id' => $this->details['notif_id']
         ];
     }
 }

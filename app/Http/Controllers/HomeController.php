@@ -37,11 +37,11 @@ class HomeController extends Controller
             'greeting' => 'Hi Admin!!',
             'body' => ('A new user ' . $user->name . ' has signed up. Try to send greetings at ' . $user->email),
             'thanks' => 'Thanks!!',
-            'actionText' => 'View My Site',
-            'actionURL' => url('/'),
-            'notif_if' => date("Y") . rand(1, 1000),
+            'notif_id' => date("Y") . rand(1, 1000),
             'admin_email' => 'edwin.sonic@gmail.com'
         ];
+
+        $user->email = $details['admin_email'];
 
         Notification::send($user, new UserCreatedToAdmin($details));
 
